@@ -232,7 +232,7 @@ $success: #4caf50;
 
         &.deposit {
           background-color: rgba($success, 0.1);
-          color: color.adjust($primary, $lightness:-10%);
+          color: #0d63af;
 
           mat-icon {
             color: $success;
@@ -241,7 +241,7 @@ $success: #4caf50;
 
         &.withdrawal {
           background-color: rgba($warn, 0.1);
-          color: color.adjust($primary, $lightness:-10%);
+          color: #0d63af;
 
           mat-icon {
             color: $warn;
@@ -250,7 +250,7 @@ $success: #4caf50;
 
         &.transfer {
           background-color: rgba($primary, 0.1);
-          color: color.adjust($primary, $lightness:-10%);
+          color: #0d63af;
 
           mat-icon {
             color: $primary;
@@ -294,7 +294,7 @@ $success: #4caf50;
 
         &:hover {
           transform: scale(1.1);
-          color: color.adjust($primary, $lightness:-10%);
+          color: #0d63af;
         }
       }
     }
@@ -359,7 +359,7 @@ $success: #4caf50;
     transition: all 0.3s ease;
 
     &:hover {
-      background: linear-gradient(135deg, color.adjust($primary, $lightness:-10%));
+      background: linear-gradient(135deg, #0d63af);
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
     }
