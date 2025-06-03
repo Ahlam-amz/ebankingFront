@@ -59,7 +59,7 @@ $success: #4caf50;
     align-items: center;
 
     .primary-action {
-      background: linear-gradient(135deg, $primary, darken($primary, 10%));
+      background: linear-gradient(135deg, $primary);
       color: white;
       border-radius: 10px;
       padding: 0 1.5rem;
@@ -69,7 +69,7 @@ $success: #4caf50;
       transition: all 0.3s ease;
 
       &:hover {
-        background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+        background: linear-gradient(135deg, 5%);
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
       }
@@ -232,7 +232,7 @@ $success: #4caf50;
 
         &.deposit {
           background-color: rgba($success, 0.1);
-          color: darken($success, 10%);
+          color: color.adjust($primary, $lightness:-10%);
 
           mat-icon {
             color: $success;
@@ -241,7 +241,7 @@ $success: #4caf50;
 
         &.withdrawal {
           background-color: rgba($warn, 0.1);
-          color: darken($warn, 10%);
+          color: color.adjust($primary, $lightness:-10%);
 
           mat-icon {
             color: $warn;
@@ -250,7 +250,7 @@ $success: #4caf50;
 
         &.transfer {
           background-color: rgba($primary, 0.1);
-          color: darken($primary, 10%);
+          color: color.adjust($primary, $lightness:-10%);
 
           mat-icon {
             color: $primary;
@@ -294,7 +294,7 @@ $success: #4caf50;
 
         &:hover {
           transform: scale(1.1);
-          color: darken($primary, 10%);
+          color: color.adjust($primary, $lightness:-10%);
         }
       }
     }
@@ -353,13 +353,13 @@ $success: #4caf50;
     height: 3rem;
     font-weight: 500;
     border-radius: 10px;
-    background: linear-gradient(135deg, $primary, darken($primary, 10%));
+    background: linear-gradient(135deg, $primary);
     color: white;
     box-shadow: 0 4px 8px rgba(25, 118, 210, 0.15);
     transition: all 0.3s ease;
 
     &:hover {
-      background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+      background: linear-gradient(135deg, color.adjust($primary, $lightness:-10%));
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
     }
