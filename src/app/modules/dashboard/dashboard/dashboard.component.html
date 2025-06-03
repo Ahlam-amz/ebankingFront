@@ -1,0 +1,172 @@
+
+
+<!-- dashboard.component.html -->
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Bank Management Dashboard</h1>
+      <p class="subtitle">Overview of client statistics and recent activities</p>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="refreshData()">
+        <mat-icon>refresh</mat-icon>
+        Refresh Data
+      </button>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading dashboard data...</p>
+    </div>
+  } @else {
+    <div class="stats-grid">
+      <!-- Client Statistics Cards -->
+      <mat-card class="stat-card primary">
+        <mat-icon>people</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats.totalClients | number }}</div>
+          <div class="stat-label">Total Clients</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card success">
+        <mat-icon>check_circle</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats.activeClients | number }}</div>
+          <div class="stat-label">Active Clients</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="stat-card warning">
+        <mat-icon>pause_circle</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats.inactiveClients | number }}</div>
+          <div class="stat-label">Inactive Clients</div>
+        </div>
+      </mat-card>
+
+      <!-- Gender Distribution Chart -->
+      <!-- Updated chart-card in your template -->
+<mat-card class="chart-card">
+  <mat-card-header>
+    <mat-card-title>Gender Distribution</mat-card-title>
+    <mat-card-subtitle>Client gender breakdown</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="chart-container" *ngIf="genderChartData?.datasets?.[0]?.data">
+      <canvas baseChart
+              [data]="genderChartData"
+              [options]="doughnutChartOptions"
+              type="doughnut">
+      </canvas>
+    </div>
+    <div class="ratio-display" *ngIf="stats.maleFemaleRatio">
+      <div class="ratio-item">
+        <span class="male-dot"></span>
+        Male: {{ stats.maleFemaleRatio.male }} ({{ stats.maleFemaleRatio.male / (stats.maleFemaleRatio.male + stats.maleFemaleRatio.female) * 100 | number:'1.0-0' }}%)
+      </div>
+      <div class="ratio-item">
+        <span class="female-dot"></span>
+        Female: {{ stats.maleFemaleRatio.female }} ({{ stats.maleFemaleRatio.female / (stats.maleFemaleRatio.male + stats.maleFemaleRatio.female) * 100 | number:'1.0-0' }}%)
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+      <!-- Accounts by Type Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Accounts by Type</mat-card-title>
+          <mat-card-subtitle>Distribution of account types</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="accountsChartData"
+                    [options]="barChartOptions"
+                    type="bar">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="table-card">
+  <mat-card-header>
+    <mat-card-title>Recent Enrollments</mat-card-title>
+    <mat-card-subtitle>Last 5 client enrollments</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading-shimmer">
+      Loading enrollments...
+    </div>
+    
+    <!-- Data state -->
+    <div *ngIf="!loading">
+      <!-- Empty state -->
+      <div *ngIf="recentEnrollments.length === 0" class="empty-state">
+        <mat-icon>info</mat-icon>
+        <p>No recent enrollments found</p>
+      </div>
+      
+      <!-- Table when data exists -->
+      <table *ngIf="recentEnrollments.length > 0" 
+             mat-table 
+             [dataSource]="recentEnrollments" 
+             class="mat-elevation-z0">
+             
+        <!-- Name Column -->
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>Client</th>
+          <td mat-cell *matCellDef="let enrollment">
+            <div class="client-cell">
+             <div class="avatar" [style.background-color]="getRandomColor()">
+                {{ enrollment.client?.prenom?.charAt(0) || '?' }}{{ enrollment.client?.nom?.charAt(0) || '?'  }}
+              </div>
+              <div class="client-name">
+                {{ enrollment.client?.prenom || 'Loading...'}} {{ enrollment.client?.nom || ''  }}
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let enrollment">
+            {{ enrollment.dateEnrollement | date:'mediumDate' }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let enrollment">
+            <mat-chip-listbox>
+              <mat-chip [class]="enrollment.statusClass">
+                <mat-icon class="status-icon">{{ getStatusIcon(enrollment.statut) }}</mat-icon>
+                {{ enrollment.statut }}
+              </mat-chip>
+            </mat-chip-listbox>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+  
+  <mat-card-actions *ngIf="recentEnrollments.length > 0">
+    <button mat-button color="primary" (click)="viewAllEnrollments()">
+      <mat-icon>list</mat-icon>
+      VIEW ALL ENROLLMENTS
+    </button>
+  </mat-card-actions>
+</mat-card>
+    </div>
+  }
+</div>

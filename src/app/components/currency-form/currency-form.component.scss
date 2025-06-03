@@ -1,0 +1,239 @@
+.currency-form-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.currency-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h2 {
+    color: #1a3d7c;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #1a3d7c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #5a6a85;
+    font-weight: 500;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  
+  &:focus {
+    outline: none;
+    border-color: #1a3d7c;
+    box-shadow: 0 0 0 2px rgba(26, 61, 124, 0.2);
+  }
+  
+  &.is-invalid {
+    border-color: #d32f2f;
+  }
+}
+
+.invalid-feedback {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  
+  .form-check-input {
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .form-check-label {
+    margin-bottom: 0;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-cancel {
+  background-color: #f5f7fa;
+  color: #5a6a85;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.btn-submit {
+  background-color: #1a3d7c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #0f2a5c;
+  }
+  
+  &:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(26, 61, 124, 0.1);
+    border-radius: 50%;
+    border-top-color: #1a3d7c;
+    animation: spin 1s linear infinite;
+  }
+  
+  p {
+    margin-top: 16px;
+    color: #5a6a85;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  
+  &.alert-danger {
+    background-color: #feeae9;
+    color: #d32f2f;
+    border: 1px solid #f5c2c7;
+  }
+}
+// ... gardez tous vos styles existants et ajoutez :
+
+.api-selection {
+  margin-bottom: 30px;
+  
+  h3 {
+    color: #1a3d7c;
+    margin-bottom: 16px;
+  }
+}
+
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.currency-card {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
+  
+  &:hover {
+    border-color: #1a3d7c;
+    box-shadow: 0 2px 8px rgba(26, 61, 124, 0.1);
+  }
+  
+  &.selected {
+    border-color: #1a3d7c;
+    background-color: #f0f4ff;
+  }
+}
+
+.currency-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  strong {
+    font-size: 18px;
+    color: #1a3d7c;
+  }
+  
+  span {
+    color: #5a6a85;
+    font-size: 14px;
+  }
+  
+  small {
+    color: #718096;
+    font-size: 12px;
+  }
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-text {
+  color: #6c757d;
+  font-size: 12px;
+  margin-top: 4px;
+}

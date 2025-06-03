@@ -1,0 +1,76 @@
+<div class="user-list-container">
+  <div class="user-list-header">
+    <h2>Gestion des Utilisateurs</h2>
+    <button class="btn-add" routerLink="/users/create">
+      <i class="fas fa-plus"></i> Nouvel Utilisateur
+    </button>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <div class="filter-section">
+    <div class="search-box">
+      <input 
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+        placeholder="Rechercher par nom, email, rôle..."
+      >
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="filter-options">
+      <label class="checkbox-container">
+        <input type="checkbox" [(ngModel)]="showOnlyActive" (change)="applyFilters()">
+        <span class="checkbox-label">Afficher uniquement les utilisateurs actifs</span>
+      </label>
+    </div>
+  </div>
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des utilisateurs...</p>
+  </div>
+  <div class="user-table-container" *ngIf="!loading">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Nom d'utilisateur</th>
+          <th>Nom complet</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Agence</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers" [routerLink]="['/users', user.id]">
+          <td>{{ user.username }}</td>
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role?.name }}</td>
+          <td>{{ user.agency?.name || 'Non assigné' }}</td>
+          <td>
+            <span class="status-badge" [class.active]="user.active" [class.inactive]="!user.active">
+              {{ user.active ? 'Actif' : 'Inactif' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="btn-action btn-view" [routerLink]="['/users', user.id]" (click)="$event.stopPropagation()">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-action btn-edit" [routerLink]="['/users/edit', user.id]" (click)="$event.stopPropagation()">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-action btn-toggle" (click)="toggleUserStatus(user.id, $event)">
+              <i class="fas" [ngClass]="user.active ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+            </button>
+            <button class="btn-action btn-delete" (click)="deleteUser(user.id, $event)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="no-data" *ngIf="filteredUsers.length === 0">
+      <p>Aucun utilisateur trouvé</p>
+    </div>
+  </div>
+</div>

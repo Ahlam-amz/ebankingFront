@@ -1,0 +1,272 @@
+@import '~@angular/material/theming';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary: mat-color(mat-palette($mat-blue, 800));
+$accent: mat-color(mat-palette($mat-teal, 500));
+$warn: mat-color(mat-palette($mat-red, 600));
+
+.transaction-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 24px;
+  background-color: #f5f9fc;
+  min-height: 100vh;
+}
+
+.dashboard-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+
+  .card-header {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, $primary, darken($primary, 10%));
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .bank-branding {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .bank-logo {
+        height: 40px;
+        width: auto;
+      }
+
+      mat-card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      mat-card-subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+      }
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 12px;
+      border-radius: 20px;
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  mat-divider {
+    border-top-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.account-selector-section {
+  margin: 24px 0;
+  padding: 0 16px;
+
+  .full-width {
+    width: 100%;
+
+    .mat-form-field-outline {
+      background-color: white;
+      border-radius: 6px;
+    }
+  }
+
+  .account-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
+
+    .account-main-info {
+      display: flex;
+      flex-direction: column;
+
+      .account-number {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .account-type {
+        font-size: 0.8rem;
+        color: #666;
+      }
+    }
+
+    .account-balance {
+      font-weight: 600;
+      color: $primary;
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  margin: 32px 0;
+  padding: 0 16px;
+  flex-wrap: wrap;
+
+  button {
+    flex: 1 1 200px;
+    min-width: 200px;
+    height: 56px;
+    border-radius: 8px !important;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    mat-icon {
+      font-size: 24px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &.deposit-btn {
+      background: linear-gradient(135deg, mat-color($mat-green, 600), mat-color($mat-green, 800));
+      color: white;
+    }
+
+    &.withdrawal-btn {
+      background: linear-gradient(135deg, mat-color($mat-red, 500), mat-color($mat-red, 700));
+      color: white;
+    }
+
+    &.transfer-btn {
+      background: linear-gradient(135deg, mat-color($mat-blue, 500), mat-color($mat-blue, 700));
+      color: white;
+    }
+
+    &.standing-order-btn {
+      background: linear-gradient(135deg, mat-color($mat-teal, 500), mat-color($mat-teal, 700));
+      color: white;
+    }
+  }
+}
+
+.transaction-tabs {
+  margin-top: 16px;
+
+  .mat-tab-header {
+    border-bottom: none;
+  }
+
+  .mat-tab-label {
+    font-weight: 500;
+    opacity: 1 !important;
+    padding: 0 24px;
+    min-width: 180px;
+    height: 48px;
+  }
+
+  .mat-tab-label-active {
+    color: $primary;
+  }
+
+  .mat-ink-bar {
+    background-color: $primary;
+    height: 3px;
+  }
+
+  .tab-content {
+    padding: 16px;
+    background-color: #fafafa;
+    border-radius: 0 0 8px 8px;
+
+    .account-summary {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+      padding: 16px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .summary-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        span:first-child {
+          font-size: 0.9rem;
+          color: #666;
+        }
+
+        .amount {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+.card-footer {
+  padding: 12px 24px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #666;
+
+  .security-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 18px;
+      color: $accent;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transaction-container {
+    padding: 12px;
+  }
+
+  .action-buttons {
+    gap: 12px;
+
+    button {
+      min-width: 160px;
+      height: 48px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+
+    .user-info {
+      align-self: flex-end;
+    }
+  }
+  
+}

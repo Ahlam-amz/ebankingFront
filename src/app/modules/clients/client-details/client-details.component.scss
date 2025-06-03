@@ -1,0 +1,311 @@
+
+
+
+
+// Remove the @use statement and use direct colors instead
+.client-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: #757575; // gray-600 equivalent
+}
+
+.client-details-card,
+.client-edit-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* View Mode Card */
+.client-details-card mat-card {
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, #e8eaf6 0%, #f5f7fa 100%); // indigo-50 equivalent
+  border-bottom: 1px solid #e0e0e0; // gray-200 equivalent
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-content {
+    text-align: center;
+    
+    mat-card-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      color: #283593; // indigo-800 equivalent
+    }
+
+    mat-card-subtitle {
+      font-size: 1rem;
+      color: #757575; // gray-600 equivalent
+    }
+  }
+
+  .client-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    color: #43a047; // green-600 equivalent
+    font-size: 0.9rem;
+
+    mat-icon {
+      font-size: 1rem;
+      height: 1rem;
+      width: 1rem;
+    }
+  }
+}
+
+.details-section {
+  padding: 1rem 2rem;
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+
+    mat-icon {
+      color: #3949ab; // indigo-500 equivalent
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #1a237e; // indigo-700 equivalent
+    }
+  }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f5f5f5; // gray-50 equivalent
+  }
+
+  .info-icon {
+    color: #3949ab; // indigo-500 equivalent
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .info-content {
+    flex: 1;
+
+    .info-label {
+      font-size: 0.85rem;
+      color: #757575; // gray-600 equivalent
+      margin-bottom: 0.25rem;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #424242; // gray-800 equivalent
+      word-break: break-word;
+    }
+  }
+}
+
+mat-divider {
+  margin: 1rem 0;
+  border-top-color: #e0e0e0; // gray-200 equivalent
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #e0e0e0; // gray-200 equivalent
+
+  button {
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .client-details-container {
+    padding: 1rem;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .details-section {
+    padding: 1rem;
+  }
+
+  .card-actions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+}
+
+
+// Add these styles to your existing SCSS file
+/* Edit Mode Specific Styles */
+.client-edit-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  mat-card {
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+  }
+
+  .edit-details-section {
+    padding: 1rem 2rem;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+
+      mat-icon {
+        color: #3949ab;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #1a237e;
+      }
+    }
+  }
+
+  .edit-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 1.5rem;
+
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+
+      .mat-form-field-outline {
+        background-color: white;
+        border-radius: 4px;
+      }
+
+      .mat-form-field-label {
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+      }
+    }
+
+    .address-field {
+      grid-column: 1 / -1;
+      
+      textarea {
+        min-height: 100px;
+      }
+    }
+  }
+
+  .edit-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e0e0e0;
+
+    button {
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+/* Date picker fix */
+.mat-datepicker-toggle {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .client-edit-card {
+    .edit-details-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .edit-card-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<div class="audit-container">
+  <div class="audit-header">
+    <h2>Journal d'Audit</h2>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des logs d'audit...</p>
+  </div>
+
+  <div class="filter-section" *ngIf="!loading">
+    <h3>Filtres</h3>
+    <div class="filter-form">
+      <div class="filter-group">
+        <label for="action">Action</label>
+        <select id="action" [(ngModel)]="filterAction" (change)="applyFilters()">
+          <option value="">Toutes les actions</option>
+          <option value="CREATE">Création</option>
+          <option value="UPDATE">Mise à jour</option>
+          <option value="DELETE">Suppression</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="entityType">Type d'entité</label>
+        <select id="entityType" [(ngModel)]="filterEntityType" (change)="applyFilters()">
+          <option value="">Tous les types</option>
+          <option value="Currency">Devise</option>
+          <option value="User">Utilisateur</option>
+          <option value="Role">Rôle</option>
+          <option value="Permission">Permission</option>
+          <option value="Agency">Agence</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="entityId">ID d'entité</label>
+        <input type="text" id="entityId" [(ngModel)]="filterEntityId" (input)="applyFilters()" placeholder="ID d'entité">
+      </div>
+
+      <div class="filter-group">
+        <label for="performedBy">Effectué par</label>
+        <input type="text" id="performedBy" [(ngModel)]="filterPerformedBy" (input)="applyFilters()" placeholder="Utilisateur">
+      </div>
+
+      <button class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
+    </div>
+  </div>
+
+  <div class="audit-table-container" *ngIf="!loading">
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Action</th>
+          <th>Type d'entité</th>
+          <th>ID d'entité</th>
+          <th>Détails</th>
+          <th>Effectué par</th>
+          <th>Date et heure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of filteredLogs">
+          <td>{{ log.id }}</td>
+          <td>
+            <span class="action-badge" [ngClass]="getActionClass(log.action)">
+              {{ log.action }}
+            </span>
+          </td>
+          <td>{{ log.entityType }}</td>
+          <td>{{ log.entityId }}</td>
+          <td>{{ log.details }}</td>
+          <td>{{ log.performedBy }}</td>
+          <td>{{ formatDate(log.timestamp) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="no-data" *ngIf="filteredLogs.length === 0">
+      <p>Aucun log d'audit trouvé</p>
+      <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
+    </div>
+  </div>
+</div>

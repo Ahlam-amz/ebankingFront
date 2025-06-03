@@ -1,0 +1,73 @@
+<div class="transaction-details-container">
+  <h2 mat-dialog-title>
+    <mat-icon [color]="getIconColor()" class="title-icon">{{getIcon()}}</mat-icon>
+    Transaction Details
+    <span class="transaction-type">{{transactionTypeLabel}}</span>
+  </h2>
+
+  <mat-dialog-content>
+    <mat-list>
+      <mat-list-item>
+        <span matListItemTitle>Reference</span>
+        <span matListItemLine class="reference">{{data.transaction.reference}}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle>Amount</span>
+        <span matListItemLine [class]="getAmountClass()">
+          {{data.transaction.amount | currency}}
+        </span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle>Date & Time</span>
+        <span matListItemLine>{{data.transaction.timestamp | date:'medium'}}</span>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span matListItemTitle>Account</span>
+        <span matListItemLine>#{{data.transaction.account.id}}</span>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="data.transaction.targetAccount">
+        <span matListItemTitle>{{data.transaction.type === 'TRANSFER' ? 'Recipient' : 'Target Account'}}</span>
+        <span matListItemLine>#{{data.transaction.targetAccount.id}}</span>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="data.transaction.agent">
+        <span matListItemTitle>Processed By</span>
+        <span matListItemLine>Agent #{{data.transaction.agent.id}}</span>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item *ngIf="data.transaction.description">
+        <span matListItemTitle>Description</span>
+        <span matListItemLine class="description">{{data.transaction.description}}</span>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="data.transaction.frequency">
+        <span matListItemTitle>Frequency</span>
+        <span matListItemLine>{{data.transaction.frequency | lowercase}}</span>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="data.transaction.nextExecutionDate">
+        <span matListItemTitle>Next Execution</span>
+        <span matListItemLine>{{data.transaction.nextExecutionDate | date:'mediumDate'}}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="printReceipt()" matTooltip="Print receipt">
+      <mat-icon>print</mat-icon> Receipt
+    </button>
+    <button mat-button *ngIf="data.transaction.type !== 'REVERSAL'" 
+            (click)="reverseTransaction()" color="warn" matTooltip="Reverse this transaction">
+      <mat-icon>undo</mat-icon> Reverse
+    </button>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+</div>

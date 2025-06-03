@@ -1,0 +1,154 @@
+
+<!--<div class="client-list-container">
+  <div class="header-section">
+    <h2 class="section-title">Client Management</h2>
+    <p class="section-subtitle">View and manage all registered clients</p>
+    
+    <mat-form-field appearance="outline" class="search-bar">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search by CIN, name or email</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (input)="filterClients()" />
+      <button matSuffix mat-icon-button *ngIf="searchTerm" (click)="searchTerm = ''; filterClients()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    
+    <div class="stats-bar">
+      <div class="stat-item">
+        <mat-icon>people</mat-icon>
+        <span>Total Clients: {{ clients.length }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon>filter_list</mat-icon>
+        <span>Showing: {{ filteredClients.length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="client-cards">
+    <mat-card *ngFor="let client of filteredClients" (click)="goToClientDetails(client.id)" 
+              [@cardAnimation]="filteredClients.length">
+      <div class="card-header">
+        <div class="avatar" [style.background-color]="getRandomColor()">
+          {{ client.nom.charAt(0) }}{{ client.prenom.charAt(0) }}
+        </div>
+        <div class="header-text">
+          <mat-card-title>{{ client.nom }} {{ client.prenom }}</mat-card-title>
+          <mat-card-subtitle>CIN: {{ client.cin }}</mat-card-subtitle>
+        </div>
+      </div>
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon>email</mat-icon>
+          <p>{{ client.email }}</p>
+        </div>
+        <div class="info-row">
+          <mat-icon>phone</mat-icon>
+          <p>{{ client.telephone }}</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="goToClientDetails(client.id); $event.stopPropagation()">
+          <mat-icon>visibility</mat-icon> View Details
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <div class="no-results" *ngIf="filteredClients.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <h3>No clients found</h3>
+    <p>Try adjusting your search criteria</p>
+  </div>
+</div>-->
+
+
+
+<div class="client-list-container">
+  <div class="header-section">
+    <h1 class="section-title">Client Management</h1>
+    <p class="section-subtitle">View and manage all registered clients</p>
+    
+    <mat-form-field appearance="outline" class="search-bar">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput 
+             [(ngModel)]="searchTerm" 
+             (input)="filterClients()" 
+             placeholder="Search by CIN, name, email or profession">
+      <button matSuffix mat-icon-button 
+              *ngIf="searchTerm" 
+              (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    
+    <div class="stats-bar">
+      <div class="stat-item">
+        <mat-icon>people</mat-icon>
+        <span>Total Clients: {{ clients.length }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon>filter_list</mat-icon>
+        <span>Showing: {{ filteredClients.length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-icon>error_outline</mat-icon>
+    <p>{{ errorMessage }}</p>
+    <button mat-raised-button color="primary" (click)="loadClients()">
+      <mat-icon>refresh</mat-icon>
+      Retry
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+    <div class="client-cards">
+      <mat-card *ngFor="let client of filteredClients" 
+                (click)="viewClientDetails(client.id)">
+        <div class="card-header">
+          <div class="avatar" [style.background-color]="getRandomColor()">
+            {{ getInitials(client.nom, client.prenom) }}
+          </div>
+          <div class="header-text">
+            <mat-card-title>{{ client.nom }} {{ client.prenom }}</mat-card-title>
+            <mat-card-subtitle>CIN: {{ client.cin }}</mat-card-subtitle>
+          </div>
+        </div>
+        
+        <mat-card-content>
+          <div class="info-row">
+            <mat-icon>email</mat-icon>
+            <p>{{ client.email || 'No email' }}</p>
+          </div>
+          <div class="info-row">
+            <mat-icon>phone</mat-icon>
+            <p>{{ client.telephone }}</p>
+          </div>
+          <div class="info-row" *ngIf="client.profession">
+            <mat-icon>work</mat-icon>
+            <p>{{ client.profession }}</p>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button mat-button color="primary" 
+                  (click)="viewClientDetails(client.id); $event.stopPropagation()">
+            <mat-icon>visibility</mat-icon>
+            View Details
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    
+    <div class="no-results" *ngIf="filteredClients.length === 0 && !isLoading">
+      <mat-icon>search_off</mat-icon>
+      <h3>No clients found</h3>
+      <p>Try adjusting your search criteria</p>
+    </div>
+  </div>
+</div>
+

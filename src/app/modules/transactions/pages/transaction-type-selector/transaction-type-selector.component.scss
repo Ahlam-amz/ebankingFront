@@ -1,0 +1,243 @@
+
+$primary: #1976d2;
+$accent: #00bcd4;
+$warn: #f44336;
+$success: #4caf50;
+$purple: #9c27b0;
+
+.transaction-type-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e8f5;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, $primary, $accent);
+  }
+}
+
+.transaction-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+
+  .bank-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+
+    .bank-logo {
+      height: 40px;
+      width: auto;
+    }
+
+    h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.transaction-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 1.8rem;
+  background: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .button-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    z-index: 1;
+  }
+
+  .icon-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    
+    mat-icon {
+      font-size: 2.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  span {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+  }
+
+  .transaction-hint {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(25, 118, 210, 0.15);
+
+    .icon-container {
+      transform: scale(1.1);
+    }
+
+    .transaction-hint {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &.deposit {
+    &::after { background: $primary; }
+    .icon-container {
+      background: rgba($primary, 0.1);
+      mat-icon { color: $primary; }
+    }
+    &:hover {
+      .icon-container { background: rgba($primary, 0.2); }
+    }
+  }
+
+  &.withdrawal {
+    &::after { background: $warn; }
+    .icon-container {
+      background: rgba($warn, 0.1);
+      mat-icon { color: $warn; }
+    }
+    &:hover {
+      .icon-container { background: rgba($warn, 0.2); }
+    }
+  }
+
+  &.transfer {
+    &::after { background: $success; }
+    .icon-container {
+      background: rgba($success, 0.1);
+      mat-icon { color: $success; }
+    }
+    &:hover {
+      .icon-container { background: rgba($success, 0.2); }
+    }
+  }
+
+  &.standing-order {
+    &::after { background: $purple; }
+    .icon-container {
+      background: rgba($purple, 0.1);
+      mat-icon { color: $purple; }
+    }
+    &:hover {
+      .icon-container { background: rgba($purple, 0.2); }
+    }
+  }
+}
+
+.security-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #5f6c7b;
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f4f8;
+
+  mat-icon {
+    color: $success;
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .transaction-type-container {
+    padding: 1.8rem;
+  }
+  
+  .transaction-types {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .type-button {
+    height: 160px;
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .transaction-types {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .transaction-header {
+    .bank-branding {
+      flex-direction: column;
+      gap: 8px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

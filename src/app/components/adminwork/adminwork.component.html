@@ -1,0 +1,42 @@
+<!-- admin-dashboard.component.html -->
+<div class="dashboard-container">
+  <!-- En-tête -->
+  <header class="dashboard-header">
+    <div class="bank-info">
+      <h1>{{ bankInfo.name }}</h1>
+      <div class="bank-details">
+        <p><mat-icon>location_on</mat-icon> {{ bankInfo.address }}</p>
+        <p><mat-icon>phone</mat-icon> {{ bankInfo.phone }}</p>
+        <p><mat-icon>email</mat-icon> {{ bankInfo.email }}</p>
+        <p><mat-icon>code</mat-icon> SWIFT: {{ bankInfo.swiftCode }}</p>
+      </div>
+    </div>
+    <div class="admin-welcome">
+      <h2>Tableau de Bord Administrateur</h2>
+      <p>Bienvenue, vous avez accès à toutes les fonctionnalités</p>
+    </div>
+  </header>
+
+  <!-- Cartes de navigation -->
+  <div class="dashboard-grid">
+    <div class="dashboard-card" *ngFor="let section of adminSections">
+      <div class="card-header">
+        <mat-icon class="card-icon">{{ section.icon }}</mat-icon>
+        <h3>{{ section.title }}</h3>
+      </div>
+      <div class="card-links">
+        <a *ngFor="let link of section.links" 
+           [routerLink]="link.path" 
+           class="nav-link">
+          {{ link.label }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="dashboard-footer">
+    <p>© 2023 {{ bankInfo.name }} - Tous droits réservés</p>
+    <!--<p>Dernière connexion: {{ today | date:'medium' }}</p>-->
+  </footer>
+</div>

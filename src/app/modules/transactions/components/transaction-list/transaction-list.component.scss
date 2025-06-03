@@ -1,0 +1,424 @@
+
+$primary: #1976d2;
+$accent: #00bcd4;
+$warn: #f44336;
+$success: #4caf50;
+
+.transaction-list-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(224, 232, 245, 0.8);
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+
+  .bank-branding {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .bank-logo {
+      height: 48px;
+      width: auto;
+    }
+
+    .header-title {
+      h2 {
+        margin: 0;
+        color: #1a365d;
+        font-weight: 600;
+        font-size: 1.8rem;
+        letter-spacing: -0.5px;
+      }
+
+      .subtitle {
+        margin: 0.5rem 0 0;
+        color: #4a5568;
+        font-size: 0.95rem;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+
+    .primary-action {
+      background: linear-gradient(135deg, $primary, darken($primary, 10%));
+      color: white;
+      border-radius: 10px;
+      padding: 0 1.5rem;
+      height: 3rem;
+      font-weight: 500;
+      box-shadow: 0 4px 8px rgba(25, 118, 210, 0.15);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
+      }
+
+      mat-icon {
+        margin-right: 0.5rem;
+        font-size: 1.25rem;
+      }
+    }
+
+    .more-actions-button {
+      border-radius: 10px;
+      padding: 0 1.25rem;
+      height: 3rem;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f1f5f9;
+        border-color: #94a3b8;
+      }
+
+      mat-icon {
+        margin-right: 0.5rem;
+        color: #64748b;
+      }
+    }
+
+    .refresh-button {
+      background-color: #f1f5f9;
+      border-radius: 10px;
+      width: 3rem;
+      height: 3rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #e2e8f0;
+        transform: rotate(90deg);
+      }
+
+      mat-icon {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.action-menu {
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+
+  .mat-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 3rem;
+    font-size: 0.95rem;
+    color: #334155;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f8fafc;
+    }
+
+    .menu-icon {
+      color: #64748b;
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+
+  p {
+    margin-top: 1.5rem;
+    color: #64748b;
+    font-size: 1rem;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .transaction-table {
+    width: 100%;
+    min-width: 100%;
+
+    .table-header {
+      font-weight: 600;
+      color: #334155;
+      background-color: #f8fafc;
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .header-row {
+      height: 3.5rem;
+    }
+
+    .data-row {
+      height: 3.5rem;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #f1f5f9;
+      }
+    }
+
+    .reference-cell {
+      .reference-text {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9rem;
+        color: #475569;
+      }
+    }
+
+    .type-cell {
+      .type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        mat-icon {
+          font-size: 1.1rem;
+          width: 1.1rem;
+          height: 1.1rem;
+        }
+
+        &.deposit {
+          background-color: rgba($success, 0.1);
+          color: darken($success, 10%);
+
+          mat-icon {
+            color: $success;
+          }
+        }
+
+        &.withdrawal {
+          background-color: rgba($warn, 0.1);
+          color: darken($warn, 10%);
+
+          mat-icon {
+            color: $warn;
+          }
+        }
+
+        &.transfer {
+          background-color: rgba($primary, 0.1);
+          color: darken($primary, 10%);
+
+          mat-icon {
+            color: $primary;
+          }
+        }
+      }
+    }
+
+    .amount-cell {
+      font-weight: 500;
+
+      .deposit {
+        color: $success;
+      }
+
+      .withdrawal {
+        color: $warn;
+      }
+    }
+
+    .account-cell, .target-cell {
+      .account-number, .target-account {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9rem;
+        color: #475569;
+      }
+    }
+
+    .date-cell {
+      .date-text {
+        white-space: nowrap;
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+    }
+
+    .actions-cell {
+      .view-button {
+        color: $primary;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: scale(1.1);
+          color: darken($primary, 10%);
+        }
+      }
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+  border: 1px dashed #e2e8f0;
+
+  .empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+
+    mat-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+      color: #94a3b8;
+    }
+  }
+
+  h3 {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #1e293b;
+  }
+
+  p {
+    margin: 0.5rem 0 1.5rem;
+    color: #64748b;
+    font-size: 0.95rem;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  .empty-state-button {
+    margin-top: 1rem;
+    padding: 0 1.5rem;
+    height: 3rem;
+    font-weight: 500;
+    border-radius: 10px;
+    background: linear-gradient(135deg, $primary, darken($primary, 10%));
+    color: white;
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.15);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
+    }
+  }
+}
+
+.security-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f4f8;
+  color: #5f6c7b;
+  font-size: 0.9rem;
+
+  mat-icon {
+    color: $success;
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .transaction-list-container {
+    padding: 1.5rem;
+  }
+
+  .transaction-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .bank-branding {
+      margin-bottom: 1rem;
+    }
+
+    .header-actions {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .transaction-list-container {
+    padding: 1rem;
+  }
+
+  .header-actions {
+    button:not(.mat-icon-button) {
+      flex: 1;
+      min-width: 120px;
+    }
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+}

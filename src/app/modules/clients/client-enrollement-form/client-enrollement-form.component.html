@@ -1,0 +1,156 @@
+
+
+<div class="container">
+  <h2>New Client Enrollment</h2>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <!-- Personal Information -->
+    <div class="form-section">
+      <h3>Personal Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" formControlName="firstName" required>
+          <div *ngIf="clientForm.get('firstName')?.invalid && clientForm.get('firstName')?.touched" class="error-message">
+            First name is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" formControlName="lastName" required>
+          <div *ngIf="clientForm.get('lastName')?.invalid && clientForm.get('lastName')?.touched" class="error-message">
+            Last name is required
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-row">
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" formControlName="gender" required>
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <div *ngIf="clientForm.get('gender')?.invalid && clientForm.get('gender')?.touched" class="error-message">
+        Gender is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="profession">Profession</label>
+      <input type="text" id="profession" formControlName="profession">
+    </div>
+  </div>
+
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" required>
+          <div *ngIf="clientForm.get('email')?.invalid && clientForm.get('email')?.touched" class="error-message">
+            Valid email is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" formControlName="phone" required>
+          <div *ngIf="clientForm.get('phone')?.invalid && clientForm.get('phone')?.touched" class="error-message">
+            Phone number is required
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cin">National ID (CIN)</label>
+          <input type="text" id="cin" formControlName="cin" required>
+          <div *ngIf="clientForm.get('cin')?.invalid && clientForm.get('cin')?.touched" class="error-message">
+            National ID is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthDate">Birth Date</label>
+          <input type="date" id="birthDate" formControlName="birthDate">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" formControlName="address" rows="2"></textarea>
+      </div>
+    </div>
+
+    <!-- Account Information -->
+    <div class="form-section">
+      <h3>Account Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="accountType">Account Type</label>
+          <select id="accountType" formControlName="accountType" required>
+            <option value="">Select account type</option>
+            <option value="CHECKING">Checking</option>
+            <option value="SAVINGS">Savings</option>
+            <option value="BUSINESS">Business</option>
+          </select>
+          <div *ngIf="clientForm.get('accountType')?.invalid && clientForm.get('accountType')?.touched" class="error-message">
+            Account type is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="currency">Currency</label>
+          <select id="currency" formControlName="currency" required>
+            <option value="">Select currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="MAD">MAD</option>
+          </select>
+          <div *ngIf="clientForm.get('currency')?.invalid && clientForm.get('currency')?.touched" class="error-message">
+            Currency is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enrollment Information -->
+    <div class="form-section">
+      <h3>Enrollment Information</h3>
+      <div class="form-group">
+        <label for="agentId">Agent ID</label>
+        <input type="text" id="agentId" formControlName="agentId" required>
+        <div *ngIf="clientForm.get('agentId')?.invalid && clientForm.get('agentId')?.touched" class="error-message">
+          Agent ID is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Documents Provided</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" formControlName="idDocument"> ID Document</label>
+          <label><input type="checkbox" formControlName="proofOfAddress"> Proof of Address</label>
+          <label><input type="checkbox" formControlName="incomeProof"> Income Proof</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="clientForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Submit Enrollment</span>
+        <span *ngIf="isLoading">Processing...</span>
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Modal -->
+  <div *ngIf="showSuccessModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>Enrollment Successful!</h3>
+      <p>Client ID: {{ createdClient?.codeClient }}</p>
+      <p>Account Number: {{ createdAccount?.accountNumber }}</p>
+      <p>Enrollment Reference: {{ createdEnrollment?.reference }}</p>
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

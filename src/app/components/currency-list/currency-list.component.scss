@@ -1,0 +1,451 @@
+.currency-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 20px;
+}
+
+.currency-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h2 {
+    color: #1a3d7c;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.btn-add {
+  background-color: #1a3d7c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #0f2a5c;
+  }
+  
+  i {
+    font-size: 14px;
+  }
+}
+
+.currency-table-container {
+  overflow-x: auto;
+}
+
+.currency-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  th {
+    background-color: #f5f7fa;
+    color: #5a6a85;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  
+  tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #f5f7fa;
+    }
+  }
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  
+  &.active {
+    background-color: #e6f7ee;
+    color: #0d8a45;
+  }
+  
+  &.inactive {
+    background-color: #feeae9;
+    color: #d32f2f;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  &.btn-edit {
+    color: #1a3d7c;
+  }
+  
+  &.btn-toggle {
+    color: #0d8a45;
+  }
+  
+  &.btn-delete {
+    color: #d32f2f;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(26, 61, 124, 0.1);
+    border-radius: 50%;
+    border-top-color: #1a3d7c;
+    animation: spin 1s linear infinite;
+  }
+  
+  p {
+    margin-top: 16px;
+    color: #5a6a85;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  
+  &.alert-danger {
+    background-color: #feeae9;
+    color: #d32f2f;
+    border: 1px solid #f5c2c7;
+  }
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px 0;
+  color: #5a6a85;
+  
+  p {
+    margin-bottom: 16px;
+  }
+}
+// ... gardez tous vos styles existants et ajoutez :
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-refresh {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  .spinning {
+    animation: spin 1s linear infinite;
+  }
+}
+
+.available-section, .active-section {
+  margin-bottom: 30px;
+  
+  h3 {
+    color: #1a3d7c;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+  }
+}
+
+.btn-toggle {
+  background: none;
+  border: none;
+  color: #1a3d7c;
+  cursor: pointer;
+  margin-left: auto;
+  
+  &:hover {
+    color: #0f2a5c;
+  }
+}
+
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+// ... continuation du CSS
+
+.available-currency-card {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background: white;
+  transition: all 0.3s;
+  
+  &:hover {
+    border-color: #1a3d7c;
+    box-shadow: 0 2px 8px rgba(26, 61, 124, 0.1);
+  }
+}
+
+.currency-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  
+  strong {
+    font-size: 18px;
+    color: #1a3d7c;
+    font-weight: 600;
+  }
+  
+  .rate {
+    background-color: #f0f4ff;
+    color: #1a3d7c;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.currency-name {
+  color: #5a6a85;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.btn-add-currency {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  &:hover {
+    background-color: #218838;
+  }
+  
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+}
+
+.inactive-row {
+  opacity: 0.6;
+  background-color: #f8f9fa;
+}
+
+.currency-code {
+  font-weight: 600;
+  color: #1a3d7c;
+  font-size: 14px;
+}
+
+.exchange-rate {
+  font-family: 'Courier New', monospace;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.last-updated {
+  font-size: 12px;
+  color: #718096;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  
+  &.active {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  &.inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  margin: 0 2px;
+  transition: all 0.3s;
+  
+  &.btn-edit {
+    color: #007bff;
+    
+    &:hover {
+      background-color: #e3f2fd;
+    }
+  }
+  
+  &.btn-toggle {
+    color: #28a745;
+    
+    &:hover {
+      background-color: #e8f5e8;
+    }
+  }
+  
+  &.btn-delete {
+    color: #dc3545;
+    
+    &:hover {
+      background-color: #fdeaea;
+    }
+  }
+}
+
+.no-data-content {
+  text-align: center;
+  padding: 60px 20px;
+  color: #5a6a85;
+  
+  i {
+    color: #cbd5e0;
+    margin-bottom: 20px;
+  }
+  
+  h4 {
+    color: #2d3748;
+    margin-bottom: 12px;
+  }
+  
+  p {
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  
+  &.alert-danger {
+    background-color: #feeae9;
+    color: #d32f2f;
+    border: 1px solid #f5c2c7;
+  }
+  
+  &.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+// Animation pour le spinner
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .currency-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-actions {
+    flex-direction: column;
+    gap: 8px;
+    
+    .btn-refresh, .btn-add {
+      width: 100%;
+    }
+  }
+  
+  .currency-table-container {
+    overflow-x: auto;
+  }
+  
+  .currency-table {
+    min-width: 600px;
+  }
+}

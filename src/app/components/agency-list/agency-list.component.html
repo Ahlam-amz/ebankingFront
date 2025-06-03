@@ -1,0 +1,81 @@
+<div class="agency-list-container">
+  <div class="agency-list-header">
+    <h2>Gestion des Agences</h2>
+    <button class="btn-add" routerLink="/agencies/create">
+      <i class="fas fa-plus"></i> Nouvelle Agence
+    </button>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+  <div class="filter-section">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilters()" 
+        placeholder="Rechercher par code, nom ou ville..."
+      >
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="filter-options">
+      <label class="checkbox-container">
+        <input type="checkbox" [(ngModel)]="showOnlyActive" (change)="applyFilters()">
+        <span class="checkbox-label">Afficher uniquement les agences actives</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des agences...</p>
+  </div>
+
+  <div class="agency-table-container" *ngIf="!loading">
+    <table class="agency-table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Nom</th>
+          <th>Ville</th>
+          <th>Téléphone</th>
+          <th>Horaires</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agency of filteredAgencies" [routerLink]="['/agencies', agency.id]">
+          <td>{{ agency.code }}</td>
+          <td>{{ agency.name }}</td>
+          <td>{{ agency.city }}</td>
+          <td>{{ agency.phone }}</td>
+          <td>{{ agency.openingTime }} - {{ agency.closingTime }}</td>
+          <td>
+            <span class="status-badge" [class.active]="agency.active" [class.inactive]="!agency.active">
+              {{ agency.active ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="btn-action btn-view" [routerLink]="['/agencies', agency.id]" (click)="$event.stopPropagation()">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-action btn-edit" [routerLink]="['/agencies/edit', agency.id]" (click)="$event.stopPropagation()">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-action btn-toggle" (click)="toggleAgencyStatus(agency.id, $event)">
+              <i class="fas" [ngClass]="agency.active ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+            </button>
+            <button class="btn-action btn-delete" (click)="deleteAgency(agency.id, $event)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="no-data" *ngIf="filteredAgencies.length === 0">
+      <p>Aucune agence trouvée</p>
+    </div>
+  </div>
+</div>

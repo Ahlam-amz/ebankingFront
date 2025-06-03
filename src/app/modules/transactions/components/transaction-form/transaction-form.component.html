@@ -1,0 +1,133 @@
+<div class="transaction-form-container">
+  <!-- En-tête avec branding bancaire -->
+  <div class="form-header">
+    <div class="bank-branding">
+      <img src="assets/images/bank-logo.png" alt="Bank Logo" class="bank-logo">
+      <h2>{{ title | uppercase }}</h2>
+    </div>
+    <div class="transaction-icon">
+      <div class="icon-container" [class]="transactionType.toLowerCase()">
+        <mat-icon>{{ getTransactionIcon() }}</mat-icon>
+      </div>
+      <span class="transaction-type-label">{{ transactionType | titlecase }}</span>
+    </div>
+  </div>
+  
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form">
+    <!-- Compte source -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Compte source</mat-label>
+      <mat-select formControlName="sourceAccountId">
+        <mat-option *ngFor="let account of accounts" [value]="account.accountId">
+          <div class="account-option">
+            <span class="account-number">#{{account.accountNumber}}</span>
+            <span class="account-type">{{account.accountType}}</span>
+            <span class="account-balance">{{account.balance | currency:'EUR':'symbol':'1.2-2'}}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+      <mat-icon matPrefix class="form-icon">account_balance</mat-icon>
+      <mat-error *ngIf="transactionForm.get('sourceAccountId')?.hasError('required')">
+        Compte source requis
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Montant -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Montant</mat-label>
+      <input matInput type="number" formControlName="amount" placeholder="0.00" step="0.01">
+      <mat-icon matPrefix class="form-icon">euro_symbol</mat-icon>
+      <span matSuffix class="currency-suffix">EUR</span>
+      <mat-error *ngIf="transactionForm.get('amount')?.hasError('required')">
+        Montant requis
+      </mat-error>
+      <mat-error *ngIf="transactionForm.get('amount')?.hasError('min')">
+        Le montant doit être positif
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Compte cible -->
+    <mat-form-field appearance="outline" class="form-field" *ngIf="showTargetAccount">
+      <mat-label>Compte cible</mat-label>
+      <mat-select formControlName="targetAccountId">
+        <mat-option *ngFor="let account of accounts" [value]="account.accountId">
+          <div class="account-option">
+            <span class="account-number">#{{account.accountNumber}}</span>
+            <span class="account-type">{{account.accountType}}</span>
+            <span class="account-balance">{{account.balance | currency:'EUR':'symbol':'1.2-2'}}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+      <mat-icon matPrefix class="form-icon">account_balance</mat-icon>
+      <mat-error *ngIf="transactionForm.get('targetAccountId')?.hasError('required')">
+        Compte cible requis
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Ordre permanent -->
+    <div *ngIf="showStandingOrderFields" class="standing-order-section">
+      <h3 class="section-title">
+        <mat-icon>schedule</mat-icon>
+        Paramètres de l'ordre permanent
+      </h3>
+      
+      <div class="standing-order-fields">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Fréquence</mat-label>
+          <mat-select formControlName="frequency">
+            <mat-option value="DAILY">Quotidien</mat-option>
+            <mat-option value="WEEKLY">Hebdomadaire</mat-option>
+            <mat-option value="MONTHLY">Mensuel</mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="form-icon">update</mat-icon>
+          <mat-error *ngIf="transactionForm.get('frequency')?.hasError('required')">
+            Fréquence requise
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Date de début</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-icon matPrefix class="form-icon">event</mat-icon>
+          <mat-error *ngIf="transactionForm.get('startDate')?.hasError('required')">
+            Date de début requise
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="2" placeholder="Ajoutez une note (optionnel)"></textarea>
+      <mat-icon matPrefix class="form-icon">description</mat-icon>
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="onCancel()" class="cancel-button">
+        <mat-icon>cancel</mat-icon>
+        Annuler
+      </button>
+      <button 
+        mat-raised-button 
+        type="submit"
+        [disabled]="transactionForm.invalid || isLoading"
+        class="submit-button"
+        [class]="transactionType.toLowerCase() + '-button'"
+      >
+        <mat-icon *ngIf="!isLoading">{{ getSubmitIcon() }}</mat-icon>
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span *ngIf="!isLoading">Confirmer {{ title }}</span>
+      </button>
+    </div>
+
+    <!-- Sécurité -->
+    <div class="security-notice">
+      <mat-icon>verified_user</mat-icon>
+      <span>Transaction sécurisée - Tous vos transferts sont cryptés</span>
+    </div>
+  </form>
+</div>

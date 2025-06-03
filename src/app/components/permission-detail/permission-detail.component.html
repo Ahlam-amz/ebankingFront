@@ -1,0 +1,59 @@
+<div class="permission-detail-container">
+  <div class="permission-detail-header">
+    <h2>Détails de la permission</h2>
+    <button class="btn-back" routerLink="/permissions">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+  <div class="permission-detail-content" *ngIf="!loading && permission">
+    <div class="permission-header">
+      <div class="permission-info">
+        <h3>{{ permission.name }}</h3>
+      </div>
+      <div class="permission-actions">
+        <button class="btn-action btn-edit" [routerLink]="['/permissions/edit', permission.id]">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button class="btn-action btn-delete" (click)="deletePermission(permission.id)">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+    <div class="permission-details">
+      <div class="detail-section">
+        <h4>Informations de la permission</h4>
+        <div class="detail-row">
+          <div class="detail-label">ID</div>
+          <div class="detail-value">{{ permission.id }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Nom</div>
+          <div class="detail-value">{{ permission.name }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Description</div>
+          <div class="detail-value">{{ permission.description || 'Aucune description' }}</div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h4>Informations système</h4>
+        <div class="detail-row">
+          <div class="detail-label">Créé le</div>
+          <div class="detail-value">{{ permission.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Dernière mise à jour</div>
+          <div class="detail-value">{{ permission.updatedAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="no-data" *ngIf="!loading && !permission">
+    <p>Permission non trouvée</p>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="transaction-type-container">
+  <!-- En-tête avec logo et titre -->
+  <div class="transaction-header">
+    <div class="bank-branding">
+      <img src="assets/images/bank-logo.png" alt="Bank Logo" class="bank-logo">
+      <h2>Type de Transaction</h2>
+    </div>
+    <p class="subtitle">Sélectionnez le type d'opération à effectuer</p>
+  </div>
+
+  <!-- Grille des types de transactions -->
+  <div class="transaction-types">
+    <!-- Dépôt -->
+    <button mat-raised-button 
+            (click)="selectType('DEPOSIT')"
+            class="type-button deposit">
+      <div class="button-content">
+        <div class="icon-container">
+          <mat-icon>account_balance</mat-icon>
+        </div>
+        <span>Dépôt</span>
+        <div class="transaction-hint">Créditer un compte</div>
+      </div>
+    </button>
+
+    <!-- Retrait -->
+    <button mat-raised-button 
+            (click)="selectType('WITHDRAWAL')"
+            class="type-button withdrawal">
+      <div class="button-content">
+        <div class="icon-container">
+          <mat-icon>money_off</mat-icon>
+        </div>
+        <span>Retrait</span>
+        <div class="transaction-hint">Retirer des fonds</div>
+      </div>
+    </button>
+
+    <!-- Virement -->
+    <button mat-raised-button 
+            (click)="selectType('TRANSFER')"
+            class="type-button transfer">
+      <div class="button-content">
+        <div class="icon-container">
+          <mat-icon>swap_horiz</mat-icon>
+        </div>
+        <span>Virement</span>
+        <div class="transaction-hint">Transférer entre comptes</div>
+      </div>
+    </button>
+
+    <!-- Ordre permanent -->
+    <button mat-raised-button 
+            (click)="selectType('STANDING_ORDER')"
+            class="type-button standing-order">
+      <div class="button-content">
+        <div class="icon-container">
+          <mat-icon>schedule</mat-icon>
+        </div>
+        <span>Ordre Permanent</span>
+        <div class="transaction-hint">Paiement récurrent</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- Pied de page sécurisé -->
+  <div class="security-footer">
+    <mat-icon>verified_user</mat-icon>
+    <span>Toutes vos transactions sont sécurisées et cryptées</span>
+  </div>
+</div>

@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+.login-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 450px;
+  margin: 2rem auto;
+  color: #333;
+}
+
+.bank-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .bank-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+
+    img {
+      height: 40px;
+    }
+
+    h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+  }
+
+  .bank-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+
+    p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  border-top: none;
+
+  h2 {
+    text-align: center;
+    color: #1976d2;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    color: #555;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s;
+
+    &:focus {
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+      outline: none;
+    }
+  }
+
+  input.is-invalid {
+    border-color: #dc3545;
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &:hover {
+    background: linear-gradient(135deg, #1565c0, #0b3d91);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    background: #b0bec5;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.login-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+
+  .forgot-password {
+    color: #1976d2;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .security-info {
+    color: #4caf50;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.bank-footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.8rem;
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+
+  .security-badges {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 1rem;
+
+    img {
+      height: 30px;
+    }
+  }
+}
+
+/* Animation pour le chargement */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}

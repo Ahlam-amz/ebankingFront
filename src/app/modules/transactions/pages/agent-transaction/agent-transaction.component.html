@@ -1,0 +1,97 @@
+<div class="transaction-container">
+  <mat-card class="dashboard-card">
+    <!-- En-tête avec logo et info -->
+    <mat-card-header class="card-header">
+      <div class="bank-branding">
+        <img src="assets/images/bank-logo.png" alt="Bank Logo" class="bank-logo">
+        <div class="bank-info">
+          <mat-card-title>Gestion des Transactions</mat-card-title>
+          <mat-card-subtitle>Portail Agent - {{currentDate | date:'fullDate'}}</mat-card-subtitle>
+        </div>
+      </div>
+      <div class="user-info">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{userName}}</span>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <!-- Sélecteur de compte amélioré -->
+      <div class="account-selector-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sélectionner un compte</mat-label>
+          <mat-select [(value)]="selectedAccount" (selectionChange)="onAccountSelected($event.value)">
+            <mat-option *ngFor="let account of accounts" [value]="account">
+              <div class="account-option">
+                <div class="account-main-info">
+                  <span class="account-number">{{account.accountNumber}}</span>
+                  <span class="account-type">{{account.accountType}}</span>
+                </div>
+                <span class="account-balance">{{account.balance | currency:account.currencyCode:'symbol':'1.2-2'}}</span>
+              </div>
+            </mat-option>
+          </mat-select>
+          <mat-hint *ngIf="selectedAccount">
+            Solde disponible: {{selectedAccount.availableBalance | currency:selectedAccount.currencyCode:'symbol':'1.2-2'}}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="action-buttons">
+        <button mat-raised-button class="deposit-btn" (click)="openTransactionDialog('DEPOSIT')">
+          <mat-icon>add_circle</mat-icon>
+          <span>Dépôt</span>
+        </button>
+        <button mat-raised-button class="withdrawal-btn" (click)="openTransactionDialog('WITHDRAWAL')">
+          <mat-icon>remove_circle</mat-icon>
+          <span>Retrait</span>
+        </button>
+        <button mat-raised-button class="transfer-btn" (click)="openTransactionDialog('TRANSFER')">
+          <mat-icon>swap_horiz</mat-icon>
+          <span>Virement</span>
+        </button>
+        <button mat-raised-button class="standing-order-btn" (click)="openStandingOrderDialog()">
+          <mat-icon>schedule</mat-icon>
+          <span>Ordre Permanent</span>
+        </button>
+      </div>
+
+      <!-- Onglets de transactions -->
+      <mat-tab-group class="transaction-tabs" (selectedTabChange)="onTabChange($event)">
+        <mat-tab label="Transactions Récentes">
+          <div class="tab-content">
+            <app-transaction-list [transactions]="recentTransactions" [isLoading]="isLoading"></app-transaction-list>
+          </div>
+        </mat-tab>
+        <mat-tab label="Historique du Compte" *ngIf="selectedAccount">
+          <div class="tab-content">
+            <div class="account-summary">
+              <div class="summary-item">
+                <span>Solde Actuel</span>
+                <span class="amount">{{selectedAccount.balance | currency:selectedAccount.currencyCode:'symbol':'1.2-2'}}</span>
+              </div>
+              <div class="summary-item">
+                <span>Solde Disponible</span>
+                <span class="amount">{{selectedAccount.availableBalance | currency:selectedAccount.currencyCode:'symbol':'1.2-2'}}</span>
+              </div>
+            </div>
+            <app-transaction-list [transactions]="accountTransactions" [isLoading]="isLoading"></app-transaction-list>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+
+    <mat-card-footer class="card-footer">
+      <div class="security-info">
+        <mat-icon>security</mat-icon>
+        <span>Système sécurisé - Toutes les transactions sont cryptées</span>
+      </div>
+      <div class="last-update">
+        Dernière mise à jour: {{lastUpdate | date:'mediumTime'}}
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

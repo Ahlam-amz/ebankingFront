@@ -1,0 +1,60 @@
+<div class="permission-list-container">
+  <div class="permission-list-header">
+    <h2>Gestion des Permissions</h2>
+    <button class="btn-add" routerLink="/permissions/new">
+      <i class="fas fa-plus"></i> Nouvelle Permission
+    </button>
+  </div>
+  
+  <div class="search-container">
+    <input 
+      type="text"
+      placeholder="Rechercher une permission..."
+      [(ngModel)]="searchTerm"
+      class="search-input"
+    >
+  </div>
+  
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des permissions...</p>
+  </div>
+  
+  <div class="permission-table-container" *ngIf="!loading">
+    <table class="permission-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Date de création</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let permission of filteredPermissions">
+          <td>{{ permission.id }}</td>
+          <td>{{ permission.name }}</td>
+          <td>{{ permission.description }}</td>
+          <td>{{ permission.createdAt | formatCommaDate }}</td>
+          <td class="actions-cell">
+            <button class="btn-action btn-view" [routerLink]="['/permissions', permission.id]">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-action btn-edit" [routerLink]="['/permissions/edit', permission.id]">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-action btn-delete" (click)="deletePermission(permission.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredPermissions.length === 0">
+          <td colspan="5" class="no-data">Aucune permission trouvée</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

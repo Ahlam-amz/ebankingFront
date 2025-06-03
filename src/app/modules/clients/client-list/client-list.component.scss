@@ -1,0 +1,391 @@
+
+/*@use '@angular/material' as mat;
+
+
+.client-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header-section {
+  margin-bottom: 2rem;
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #3f51b5;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 2rem;
+  }
+}
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+.stats-bar {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(0, 0, 0, 0.7);
+    
+    mat-icon {
+      font-size: 1.2rem;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+}
+
+.client-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+mat-card {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1rem 0;
+    margin-bottom: 1rem;
+    
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      //@include mat-elevation(2);
+    }
+    
+    .header-text {
+      flex: 1;
+      
+      mat-card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+        font-weight: 500;
+      }
+      
+      mat-card-subtitle {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+  
+  mat-card-content {
+    padding: 0 1rem;
+    
+    .info-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      
+      mat-icon {
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+        color: rgba(0, 0, 0, 0.54);
+        width: 24px;
+        height: 24px;
+      }
+      
+      p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    
+    button {
+      mat-icon {
+        font-size: 1.1rem;
+        height: 1.1rem;
+        width: 1.1rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 0;
+  color: rgba(0, 0, 0, 0.5);
+  
+  mat-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Animation
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animation {
+  animation: cardEnter 0.3s ease-out forwards;
+}*/
+
+
+
+
+@use '@angular/material' as mat;
+
+.client-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header-section {
+  margin-bottom: 2rem;
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #3f51b5;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 2rem;
+  }
+}
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+.stats-bar {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(0, 0, 0, 0.7);
+    
+    mat-icon {
+      font-size: 1.2rem;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+}
+
+.client-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+mat-card {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1rem 0;
+    margin-bottom: 1rem;
+    
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+    }
+    
+    .header-text {
+      flex: 1;
+      
+      mat-card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+        font-weight: 500;
+      }
+      
+      mat-card-subtitle {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+  
+  mat-card-content {
+    padding: 0 1rem;
+    
+    .info-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      
+      mat-icon {
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+        color: rgba(0, 0, 0, 0.54);
+        width: 24px;
+        height: 24px;
+      }
+      
+      p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    
+    button {
+      mat-icon {
+        font-size: 1.1rem;
+        height: 1.1rem;
+        width: 1.1rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: #f44336;
+  
+  mat-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 0;
+  color: rgba(0, 0, 0, 0.5);
+  
+  mat-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+}
+
+mat-spinner {
+  margin: 2rem auto;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .client-cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .header-section {
+    .section-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .stats-bar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

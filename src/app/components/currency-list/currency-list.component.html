@@ -1,0 +1,135 @@
+<div class="currency-container">
+  <div class="currency-header">
+    <h2>Gestion des Devises</h2>
+    <div class="header-actions">
+      <button class="btn-refresh" (click)="updateAllRates()" [disabled]="loading">
+        <i class="fas fa-sync-alt" [class.spinning]="updatingRates"></i> 
+        Actualiser les taux
+      </button>
+      <button class="btn-add" routerLink="/currencies/create">
+        <i class="fas fa-plus"></i> Ajouter une devise
+      </button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des devises...</p>
+  </div>
+
+  <!-- Section des devises disponibles à ajouter -->
+  <div class="available-section" *ngIf="!loading && availableCurrencies.length > 0">
+    <h3>
+      <i class="fas fa-globe"></i> 
+      Devises disponibles depuis l'API ({{ availableCurrencies.length }})
+      <button class="btn-toggle" (click)="toggleAvailableSection()">
+        <i class="fas" [ngClass]="showAvailable ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </button>
+    </h3>
+    
+    <div class="available-currencies" *ngIf="showAvailable">
+      <div class="currency-grid">
+        <div *ngFor="let currency of availableCurrencies" class="available-currency-card">
+          <div class="currency-info">
+            <div class="currency-header-card">
+              <strong>{{ currency.code }}</strong>
+              <span class="rate">{{ currency.rate | number:'1.4-4' }}</span>
+            </div>
+            <div class="currency-name">{{ currency.name }}</div>
+            <button 
+              class="btn-add-currency" 
+              (click)="addCurrencyFromAPI(currency)"
+              [disabled]="addingCurrency === currency.code"
+            >
+              <i class="fas fa-plus"></i>
+              {{ addingCurrency === currency.code ? 'Ajout...' : 'Ajouter' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section des devises actives dans le système -->
+  <div class="active-section" *ngIf="!loading">
+    <h3>
+      <i class="fas fa-coins"></i> 
+      Devises actives dans le système ({{ currencies.length }})
+    </h3>
+    
+    <div class="currency-table-container" *ngIf="currencies.length > 0">
+      <table class="currency-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Taux de change</th>
+            <th>Frais de conversion</th>
+            <th>Statut</th>
+            <th>Dernière MAJ</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currency of currencies" [class.inactive-row]="!currency.active">
+            <td>
+              <span class="currency-code">{{ currency.code }}</span>
+            </td>
+            <td>{{ currency.name }}</td>
+            <td>
+              <span class="exchange-rate">{{ currency.exchangeRate | number:'1.4-4' }}</span>
+            </td>
+            <td>{{ currency.conversionFee | number:'1.2-2' }}%</td>
+            <td>
+              <span class="status-badge" [ngClass]="{'active': currency.active, 'inactive': !currency.active}">
+                {{ currency.active ? 'Actif' : 'Inactif' }}
+              </span>
+            </td>
+            <td>
+              <span class="last-updated">
+                 {{ currency.updatedAt ? (currency.updatedAt | date:'dd/MM/yyyy HH:mm') : 'N/A' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button 
+                class="btn-action btn-edit" 
+                (click)="editCurrency(currency.id!)"
+                title="Modifier"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button 
+                class="btn-action btn-toggle" 
+                (click)="toggleStatus(currency, $event)"
+                [title]="currency.active ? 'Désactiver' : 'Activer'"
+              >
+                <i class="fas" [ngClass]="currency.active ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+              </button>
+              <button 
+                class="btn-action btn-delete" 
+                (click)="deleteCurrency(currency.id!, $event)"
+                title="Supprimer"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="no-data" *ngIf="currencies.length === 0">
+      <div class="no-data-content">
+        <i class="fas fa-coins fa-3x"></i>
+        <h4>Aucune devise configurée</h4>
+        <p>Commencez par ajouter des devises depuis l'API ou créez-en manuellement</p>
+        <button class="btn-add" routerLink="/currencies/create">
+          <i class="fas fa-plus"></i> Ajouter une devise
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

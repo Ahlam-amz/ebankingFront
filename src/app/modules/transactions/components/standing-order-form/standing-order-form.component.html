@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Create Standing Order</h2>
+<mat-dialog-content>
+  <form [formGroup]="standingOrderForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Target Account</mat-label>
+      <mat-select formControlName="targetAccountId">
+        <mat-option *ngFor="let account of accounts" [value]="account.accountId">
+          {{account.accountNumber}} ({{account.balance | currency}})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="standingOrderForm.get('targetAccountId')?.hasError('required')">
+        Target account is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" placeholder="0.00" step="0.01">
+      <mat-icon matSuffix>attach_money</mat-icon>
+      <mat-error *ngIf="standingOrderForm.get('amount')?.hasError('required')">
+        Amount is required
+      </mat-error>
+      <mat-error *ngIf="standingOrderForm.get('amount')?.hasError('min')">
+        Amount must be positive
+      </mat-error>
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Frequency</mat-label>
+        <mat-select formControlName="frequency">
+          <mat-option *ngFor="let freq of frequencyOptions" [value]="freq.value">
+            {{freq.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="standingOrderForm.get('frequency')?.hasError('required')">
+          Frequency is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="startDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="standingOrderForm.get('startDate')?.hasError('required')">
+          Start date is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="2"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onSubmit()"
+    [disabled]="standingOrderForm.invalid || isLoading"
+  >
+    <span *ngIf="!isLoading">Create Standing Order</span>
+    <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+  </button>
+</mat-dialog-actions>

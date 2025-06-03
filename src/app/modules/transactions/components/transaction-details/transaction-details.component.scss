@@ -1,0 +1,57 @@
+
+.transaction-details-container {
+  width: 450px;
+  max-width: 100%;
+}
+
+.title-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.transaction-type {
+  font-size: 16px;
+  color: mat-color(gray, 600);
+  margin-left: 8px;
+  font-weight: normal;
+}
+
+mat-list {
+  padding-top: 0;
+}
+
+mat-list-item {
+  height: auto !important;
+  margin: 8px 0;
+}
+
+.reference {
+  font-family: monospace;
+  font-size: 14px;
+  color: mat-color(gray, 700);
+}
+
+.description {
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.deposit-amount {
+  color: mat-color(green, 600);
+  font-weight: 500;
+}
+
+.withdrawal-amount {
+  color: mat-color(red, 600);
+  font-weight: 500;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px !important;
+  border-top: 1px solid mat-color(gray, 200);
+  justify-content: flex-end;
+}
+
+.mat-mdc-dialog-content {
+  max-height: 65vh;
+}

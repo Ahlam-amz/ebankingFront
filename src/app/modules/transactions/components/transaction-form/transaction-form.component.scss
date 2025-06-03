@@ -1,0 +1,318 @@
+
+$primary: #1976d2;
+$accent: #00bcd4;
+$warn: #f44336;
+$success: #4caf50;
+$purple: #9c27b0;
+
+.transaction-form-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(224, 232, 245, 0.8);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, $primary, $accent);
+  }
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+
+  .bank-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .bank-logo {
+      height: 40px;
+      width: auto;
+    }
+
+    h2 {
+      margin: 0;
+      color: #1a365d;
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  .transaction-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba($primary, 0.1);
+      
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+        color: $primary;
+      }
+
+      &.deposit {
+        background: rgba($success, 0.1);
+        mat-icon { color: $success; }
+      }
+
+      &.withdrawal {
+        background: rgba($warn, 0.1);
+        mat-icon { color: $warn; }
+      }
+
+      &.transfer {
+        background: rgba($primary, 0.1);
+        mat-icon { color: $primary; }
+      }
+
+      &.standing-order {
+        background: rgba($purple, 0.1);
+        mat-icon { color: $purple; }
+      }
+    }
+
+    .transaction-type-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #4a5568;
+    }
+  }
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  width: 100%;
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-outline {
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  .form-icon {
+    color: #64748b;
+    margin-right: 0.5rem;
+  }
+
+  .currency-suffix {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.account-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0;
+
+  .account-number {
+    font-weight: 500;
+    color: #1a365d;
+  }
+
+  .account-type {
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+
+  .account-balance {
+    font-weight: 600;
+    color: $primary;
+  }
+}
+
+.standing-order-section {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(241, 245, 249, 0.5);
+  border-radius: 12px;
+  border: 1px dashed #e2e8f0;
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #1a365d;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+
+    mat-icon {
+      color: $purple;
+    }
+  }
+
+  .standing-order-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 0 1.5rem;
+    height: 3rem;
+    transition: all 0.3s ease;
+
+    mat-icon {
+      font-size: 1.25rem;
+    }
+  }
+
+  .cancel-button {
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+
+    &:hover {
+      background-color: #f1f5f9;
+    }
+  }
+
+  .submit-button {
+    background: linear-gradient(135deg, $primary, darken($primary, 10%));
+    color: white;
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.15);
+
+    &:hover:not([disabled]) {
+      background: linear-gradient(135deg, darken($primary, 5%), darken($primary, 15%));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(25, 118, 210, 0.2);
+    }
+
+    &:disabled {
+      background: #cbd5e1;
+    }
+
+    &.deposit-button {
+      background: linear-gradient(135deg, $success, darken($success, 10%));
+      box-shadow: 0 4px 8px rgba(22, 163, 74, 0.15);
+
+      &:hover:not([disabled]) {
+        background: linear-gradient(135deg, darken($success, 5%), darken($success, 15%));
+        box-shadow: 0 6px 12px rgba(22, 163, 74, 0.2);
+      }
+    }
+
+    &.withdrawal-button {
+      background: linear-gradient(135deg, $warn, darken($warn, 10%));
+      box-shadow: 0 4px 8px rgba(220, 38, 38, 0.15);
+
+      &:hover:not([disabled]) {
+        background: linear-gradient(135deg, darken($warn, 5%), darken($warn, 15%));
+        box-shadow: 0 6px 12px rgba(220, 38, 38, 0.2);
+      }
+    }
+
+    &.standing-order-button {
+      background: linear-gradient(135deg, $purple, darken($purple, 10%));
+      box-shadow: 0 4px 8px rgba(156, 39, 176, 0.15);
+
+      &:hover:not([disabled]) {
+        background: linear-gradient(135deg, darken($purple, 5%), darken($purple, 15%));
+        box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
+      }
+    }
+  }
+}
+
+.security-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f4f8;
+  color: #5f6c7b;
+  font-size: 0.85rem;
+
+  mat-icon {
+    color: $success;
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transaction-form-container {
+    padding: 1.5rem;
+  }
+
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    .transaction-icon {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .transaction-form-container {
+    padding: 1.25rem;
+    margin: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.half-width {
+  width: calc(50% - 8px);
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+mat-dialog-content {
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+mat-spinner {
+  display: inline-block;
+  margin: 0 8px;
+}
+
+textarea {
+  resize: none;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px !important;
+  border-top: 1px solid mat-color(gray, 200);
+}
+
+.mat-mdc-form-field {
+  margin-bottom: 8px;
+}

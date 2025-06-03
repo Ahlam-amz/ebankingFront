@@ -1,0 +1,71 @@
+<div class="role-detail-container">
+  <div class="role-detail-header">
+    <h2>Détails du rôle</h2>
+    <button class="btn-back" routerLink="/roles">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+  <div class="role-detail-content" *ngIf="!loading && role">
+    <div class="role-header">
+      <div class="role-info">
+        <h3>{{ role.name }}</h3>
+      </div>
+      <div class="role-actions">
+        <button class="btn-action btn-edit" [routerLink]="['/roles/edit', role.id]">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button class="btn-action btn-delete" (click)="deleteRole(role.id)">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+    <div class="role-details">
+      <div class="detail-section">
+        <h4>Informations du rôle</h4>
+        <div class="detail-row">
+          <div class="detail-label">ID</div>
+          <div class="detail-value">{{ role.id }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Nom</div>
+          <div class="detail-value">{{ role.name }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Description</div>
+          <div class="detail-value">{{ role.description || 'Aucune description' }}</div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h4>Informations système</h4>
+        <div class="detail-row">
+          <div class="detail-label">Créé le</div>
+          <div class="detail-value">{{ role.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Dernière mise à jour</div>
+          <div class="detail-value">{{ role.updatedAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="permissions-section">
+      <h4>Permissions associées</h4>
+      <div class="permissions-list" *ngIf="permissions.length > 0">
+        <div class="permission-card" *ngFor="let permission of permissions">
+          <div class="permission-name">{{ permission.name }}</div>
+          <div class="permission-description">{{ permission.description || 'Aucune description' }}</div>
+        </div>
+      </div>
+      <div class="no-permissions" *ngIf="permissions.length === 0">
+        Aucune permission associée à ce rôle
+      </div>
+    </div>
+  </div>
+  <div class="no-data" *ngIf="!loading && !role">
+    <p>Rôle non trouvé</p>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="agency-details-container">
+  <div class="agency-details-header">
+    <h2>Détails de l'agence</h2>
+    <div class="header-actions">
+      <button class="btn-back" routerLink="/agencies">
+        <i class="fas fa-arrow-left"></i> Retour
+      </button>
+      <button class="btn-edit" [routerLink]="['/agencies/edit', agency.id]" *ngIf="agency">
+        <i class="fas fa-edit"></i> Modifier
+      </button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des détails de l'agence...</p>
+  </div>
+
+  <div class="agency-details-content" *ngIf="agency && !loading">
+    <div class="agency-header">
+      <div class="agency-title">
+        <h3>{{ agency.name }}</h3>
+        <span class="agency-code">{{ agency.code }}</span>
+      </div>
+      <div class="agency-status">
+        <span class="status-badge" [class.active]="agency.active" [class.inactive]="!agency.active">
+          {{ agency.active ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="agency-info-section">
+      <div class="info-group">
+        <h4>Informations générales</h4>
+        <div class="info-row">
+          <div class="info-label">Adresse</div>
+          <div class="info-value">{{ agency.address }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Ville</div>
+          <div class="info-value">{{ agency.city }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Téléphone</div>
+          <div class="info-value">{{ agency.phone }}</div>
+        </div>
+        <div class="info-row" *ngIf="agency.email">
+          <div class="info-label">Email</div>
+          <div class="info-value">{{ agency.email }}</div>
+        </div>
+      </div>
+
+      <div class="info-group">
+        <h4>Horaires d'ouverture</h4>
+        <div class="info-row">
+          <div class="info-label">Ouverture</div>
+          <div class="info-value">{{ agency.openingTime }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Fermeture</div>
+          <div class="info-value">{{ agency.closingTime }}</div>
+        </div>
+      </div>
+
+      <div class="info-group">
+        <h4>Informations système</h4>
+        <div class="info-row" *ngIf="agency.createdAt">
+          <div class="info-label">Créée le</div>
+          <div class="info-value">{{ agency.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        <div class="info-row" *ngIf="agency.updatedAt">
+          <div class="info-label">Dernière mise à jour</div>
+          <div class="info-value">{{ agency.updatedAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agency-actions">
+      <button class="btn-toggle" (click)="toggleAgencyStatus()">
+        {{ agency.active ? 'Désactiver' : 'Activer' }} l'agence
+      </button>
+      <button class="btn-delete" (click)="deleteAgency()">
+        <i class="fas fa-trash"></i> Supprimer l'agence
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="user-detail-container">
+  <div class="user-detail-header">
+    <h2>Détails de l'utilisateur</h2>
+    <button class="btn-back" routerLink="/users">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+  <div class="user-detail-content" *ngIf="!loading && user">
+    <div class="user-header">
+      <div class="user-info">
+        <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+        <span class="username">@{{ user.username }}</span>
+        <span class="status-badge" [class.active]="user.active" [class.inactive]="!user.active">
+          {{ user.active ? 'Actif' : 'Inactif' }}
+        </span>
+      </div>
+      <div class="user-actions">
+        <button class="btn-action btn-edit" [routerLink]="['/users/edit', user.id]">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button class="btn-action btn-toggle" (click)="toggleUserStatus(user.id)">
+          <i class="fas" [ngClass]="user.active ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+          {{ user.active ? 'Désactiver' : 'Activer' }}
+        </button>
+        <button class="btn-action btn-delete" (click)="deleteUser(user.id)">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+    <div class="user-details">
+      <div class="detail-section">
+        <h4>Informations personnelles</h4>
+        <div class="detail-row">
+          <div class="detail-label">Nom complet</div>
+          <div class="detail-value">{{ user.firstName }} {{ user.lastName }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Nom d'utilisateur</div>
+          <div class="detail-value">{{ user.username }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Email</div>
+          <div class="detail-value">{{ user.email }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Téléphone</div>
+          <div class="detail-value">{{ user.phone || 'Non renseigné' }}</div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h4>Informations professionnelles</h4>
+        <div class="detail-row">
+          <div class="detail-label">Rôle</div>
+          <div class="detail-value">{{ user.role?.name }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Agence</div>
+          <div class="detail-value">{{ user.agency?.name || 'Non assigné' }}</div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h4>Informations système</h4>
+        <div class="detail-row">
+          <div class="detail-label">Statut</div>
+          <div class="detail-value">
+            <span class="status-badge" [class.active]="user.active" [class.inactive]="!user.active">
+              {{ user.active ? 'Actif' : 'Inactif' }}
+            </span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Dernière connexion</div>
+          <div class="detail-value">{{ user.lastLogin | date:'dd/MM/yyyy HH:mm' || 'Jamais connecté' }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Créé le</div>
+          <div class="detail-value">{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Dernière mise à jour</div>
+          <div class="detail-value">{{ user.updatedAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="no-data" *ngIf="!loading && !user">
+    <p>Utilisateur non trouvé</p>
+  </div>
+</div> 
+
+ 

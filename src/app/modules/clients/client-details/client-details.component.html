@@ -1,0 +1,231 @@
+
+
+<div class="client-details-container">
+  <!-- Loading State -->
+  <div *ngIf="!client" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Chargement des détails du client...</p>
+  </div>
+  <!--VIEW MODE-->
+<div *ngIf="client && !isEditing" class="client-details-card"></div>
+  <!-- Client Details -->
+  <div *ngIf="client && !isEditing" class="client-details-card">
+    <mat-card>
+      <!-- Header with Avatar -->
+      <div class="card-header">
+        <div class="avatar" [style.background-color]="getRandomColor()">
+          {{ client.nom.charAt(0) }}{{ client.prenom.charAt(0) }}
+        </div>
+        <div class="header-content">
+          <mat-card-title>{{ client.nom }} {{ client.prenom }}</mat-card-title>
+          <mat-card-subtitle>CIN: {{ client.cin }}</mat-card-subtitle>
+          <div class="client-status">
+            <mat-icon>verified</mat-icon>
+            <span>Client vérifié</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Sections -->
+      <mat-card-content>
+        <!-- Personal Information -->
+        <section class="details-section">
+          <div class="section-header">
+            <mat-icon>person_outline</mat-icon>
+            <h3>Informations personnelles</h3>
+          </div>
+          <div class="details-grid">
+            <div class="info-item">
+              <mat-icon class="info-icon">badge</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Nom complet</div>
+                <div class="info-value">{{ client.nom }} {{ client.prenom}}</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon class="info-icon">credit_card</mat-icon>
+              <div class="info-content">
+                <div class="info-label">CIN</div>
+                <div class="info-value">{{ client.cin }}</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon class="info-icon">cake</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Date de naissance</div>
+                <div class="info-value">{{ client.dateNaissance }}</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon class="info-icon">work_outline</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Profession</div>
+                <div class="info-value">{{ client.profession }}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <mat-divider></mat-divider>
+
+        <!-- Contact Information -->
+        <section class="details-section">
+          <div class="section-header">
+            <mat-icon>contact_mail</mat-icon>
+            <h3>Coordonnées</h3>
+          </div>
+          <div class="details-grid">
+            <div class="info-item">
+              <mat-icon class="info-icon">email</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Email</div>
+                <div class="info-value">{{ client.email }}</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon class="info-icon">phone</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Téléphone</div>
+                <div class="info-value">{{ client.telephone }}</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon class="info-icon">home</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Adresse</div>
+                <div class="info-value">{{ client.adresse }}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <mat-divider></mat-divider>
+
+        <!-- Additional Information -->
+        <section class="details-section">
+          <div class="section-header">
+            <mat-icon>info_outline</mat-icon>
+            <h3>Informations supplémentaires</h3>
+          </div>
+          <div class="details-grid">
+            <div class="info-item">
+              <mat-icon class="info-icon">calendar_today</mat-icon>
+              <div class="info-content">
+                <div class="info-label">Date d'enregistrement</div>
+                <div class="info-value">{{ client.dateEnregistrement }}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </mat-card-content>
+
+      <!-- Actions -->
+      <mat-card-actions class="card-actions">
+        <button mat-stroked-button color="primary" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Retour à la liste
+        </button>
+        <button mat-raised-button color="primary" (click)="editClient()">
+          <mat-icon>edit</mat-icon>
+          Modifier
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+
+<!-- Edit Mode -->
+<div *ngIf="isEditing" class="client-edit-card">
+  <mat-card>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <!-- Header with Avatar -->
+      <div class="card-header">
+        <div class="avatar" [style.background-color]="getRandomColor()">
+          {{ editForm.value.nom?.charAt(0) }}{{ editForm.value.prenom?.charAt(0) }}
+        </div>
+        <div class="header-content">
+          <mat-card-title>Modifier Client</mat-card-title>
+          <mat-card-subtitle>CIN: {{ editForm.value.cin }}</mat-card-subtitle>
+        </div>
+      </div>
+
+      <!-- Edit Form Sections -->
+      <mat-card-content>
+        <!-- Personal Information -->
+        <section class="edit-details-section">
+          <div class="section-header">
+            <mat-icon>person_outline</mat-icon>
+            <h3>Informations personnelles</h3>
+          </div>
+          <div class="edit-details-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="nom">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Prénom</mat-label>
+              <input matInput formControlName="prenom">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>CIN</mat-label>
+              <input matInput formControlName="cin">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Date de naissance</mat-label>
+              <input matInput type="date" formControlName="dateNaissance">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Profession</mat-label>
+              <input matInput formControlName="profession">
+            </mat-form-field>
+          </div>
+        </section>
+
+        <mat-divider></mat-divider>
+
+        <!-- Contact Information -->
+        <section class="edit-details-section">
+          <div class="section-header">
+            <mat-icon>contact_mail</mat-icon>
+            <h3>Coordonnées</h3>
+          </div>
+          <div class="edit-details-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Téléphone</mat-label>
+              <input matInput formControlName="telephone">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="address-field">
+              <mat-label>Adresse</mat-label>
+              <textarea matInput formControlName="adresse" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+        </section>
+      </mat-card-content>
+
+      <!-- Actions -->
+      <mat-card-actions class="edit-card-actions">
+        <button mat-stroked-button type="button" (click)="cancelEdit()">
+          <mat-icon>close</mat-icon>
+          Annuler
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid || isSaving">
+          <mat-icon>save</mat-icon>
+          <span *ngIf="!isSaving">Enregistrer</span>
+          <span *ngIf="isSaving">Enregistrement...</span>
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
+</div>

@@ -1,0 +1,152 @@
+<div class="agency-form-container">
+  <div class="agency-form-header">
+    <h2>{{ isEditMode ? 'Modifier l\'agence' : 'Ajouter une nouvelle agence' }}</h2>
+    <button class="btn-back" routerLink="/agencies">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+
+  <form [formGroup]="agencyForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="code">Code de l'agence</label>
+        <input 
+          type="text" 
+          id="code" 
+          formControlName="code" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['code'].errors }"
+          maxlength="10"
+        >
+        <div *ngIf="submitted && f['code'].errors" class="invalid-feedback">
+          <div *ngIf="f['code'].errors['required']">Le code est requis</div>
+          <div *ngIf="f['code'].errors['maxlength']">Le code ne doit pas dépasser 10 caractères</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Nom de l'agence</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+        >
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors['required']">Le nom est requis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Adresse</label>
+      <input 
+        type="text" 
+        id="address" 
+        formControlName="address" 
+        class="form-control" 
+        [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+      >
+      <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+        <div *ngIf="f['address'].errors['required']">L'adresse est requise</div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="city">Ville</label>
+        <input 
+          type="text" 
+          id="city" 
+          formControlName="city" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"
+        >
+        <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+          <div *ngIf="f['city'].errors['required']">La ville est requise</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input 
+          type="text" 
+          id="phone" 
+          formControlName="phone" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+        >
+        <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+          <div *ngIf="f['phone'].errors['required']">Le téléphone est requis</div>
+          <div *ngIf="f['phone'].errors['pattern']">Format de téléphone invalide</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email" 
+        class="form-control" 
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      >
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['email']">Format d'email invalide</div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="openingTime">Heure d'ouverture</label>
+        <input 
+          type="time" 
+          id="openingTime" 
+          formControlName="openingTime" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['openingTime'].errors }"
+        >
+        <div *ngIf="submitted && f['openingTime'].errors" class="invalid-feedback">
+          <div *ngIf="f['openingTime'].errors['required']">L'heure d'ouverture est requise</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="closingTime">Heure de fermeture</label>
+        <input 
+          type="time" 
+          id="closingTime" 
+          formControlName="closingTime" 
+          class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && f['closingTime'].errors }"
+        >
+        <div *ngIf="submitted && f['closingTime'].errors" class="invalid-feedback">
+          <div *ngIf="f['closingTime'].errors['required']">L'heure de fermeture est requise</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label class="checkbox-container">
+        <input type="checkbox" formControlName="active">
+        <span class="checkbox-label">Agence active</span>
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" routerLink="/agencies">Annuler</button>
+      <button type="submit" class="btn-submit" [disabled]="loading">
+        {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+</div>
